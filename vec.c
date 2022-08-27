@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <assert.h>
 
 typedef struct Node
 {
@@ -9,11 +12,21 @@ typedef struct Node
 
 typedef struct Vec
 {
-    /* data */
     u_int len;
     u_int cap;
     Node *root;
 } Vec;
+
+//--------------------------------------
+// TODO: Move to a different file       
+typedef void *Ok;
+
+typedef struct Result
+{
+    Ok data;
+    char error[];
+} Result;
+//--------------------------------------
 
 Node *new_node(void *data)
 {
@@ -26,22 +39,29 @@ Node *new_node(void *data)
 void push(Vec *vec, void *data)
 {
     Node *el = new_node(data);
+    assert(el != NULL && vec != NULL);
 
-    if (vec->len == 0)
+    if (vec->root == NULL)
         vec->root = el;
     else
     {
-        for (Node *cursor = vec->root; cursor != NULL; cursor = cursor->next)
-        {
-            if (cursor->next == NULL)
-            {
-                cursor->next = el;
-                el->next = NULL;
-            }
-        }
+        el->next = vec->root;
+        vec->root = el;
     }
 
     vec->len += 1;
+}
+
+void *pop(Vec *vec)
+{
+    assert(vec != NULL && vec->len > 0);
+    Node *tmp = vec->root;
+    vec->root = tmp->next;
+    void *result = tmp->data;
+    tmp->next = NULL;
+    free(tmp);
+    vec->len--;
+    return result;
 }
 
 Vec new_vec()
@@ -54,11 +74,12 @@ int main()
 {
     Vec a = new_vec();
     printf("a = { \n\tlen: %i, \n\tcap: %i, \n\troot: %p \n}\n", a.len, a.cap, a.root);
-    push(&a, 20);
-    push(&a, 10);
-    push(&a, 30);
-    printf("v[0] = %i\n", (u_int)a.root->data);
-    printf("v[1] = %i\n", (u_int)a.root->next->data);
-    printf("v[2] = %i\n", (u_int)a.root->next->next->data);
-    return 0;
+    push(&a, 1);
+    push(&a, 2);
+    push(&a, 3);
+    while (a.len > 0)
+    {
+        printf("v = %i\n", (int)pop(&a));
+    }
+    return EXIT_SUCCESS;
 }
