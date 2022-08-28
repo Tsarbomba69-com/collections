@@ -1,31 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <assert.h>
-
-typedef struct Node
-{
-    void *data;
-    struct Node *next;
-} Node;
-
-typedef struct Vec
-{
-    u_int len;
-    Node *head;
-} Vec;
-
-//--------------------------------------
-// TODO: Move to a different file
-typedef void *Ok;
-
-typedef struct Result
-{
-    Ok data;
-    char error[];
-} Result;
-//--------------------------------------
+#include "vec.h"
 
 Node *new_node(void *data)
 {
@@ -146,7 +119,7 @@ void print_vec(Vec *vec)
 
     while (tmp != NULL)
     {
-        printf("%p, ", tmp->data == NULL ? 0x0 : tmp->data);
+        printf("%p, ", tmp->data);
         tmp = tmp->next;
     }
 
@@ -168,36 +141,4 @@ Vec new_vec()
     Vec vec = {.len = 0, .head = (Node *)malloc(10 * sizeof(Node))};
     vec.head = NULL;
     return vec;
-}
-
-int main()
-{
-    Vec a = new_vec();
-    Vec b = new_vec();
-    printf("a = { \n\tlen: %i, \n\thead: %p \n}\n", a.len, a.head);
-    push(&a, 1);
-    push(&a, 2);
-    push(&a, 3);
-    printf("a = ");
-    print_vec(&a);
-    enqueue(&b, 4);
-    enqueue(&b, 5);
-    enqueue(&b, 6);
-    printf("q = ");
-    print_vec(&b);
-    append(&a, &b);
-    reverse(&a);
-    reverse(&a);
-    reverse(&a);
-    printf("vec = ");
-    print_vec(&a);
-    clear(&a);
-    while (a.len > 0)
-    {
-        printf("v = %i\n", (int)pop(&a));
-    }
-
-    push(&a, 9);
-    printf("head->data = %i\n", (int)a.head->data);
-    return EXIT_SUCCESS;
 }
