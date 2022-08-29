@@ -4,7 +4,8 @@
 # BUILD SHARED LIBRARY
 #----------------------------
 # 1. Create shared library.
-gcc -Wall -Wextra -Werror -fdiagnostics-color=always -ggdb -o libvec.so -fpic -shared vec.c
+# gcc -Wall -Wextra -Werror -fdiagnostics-color=always -ggdb -o libvec.so -fpic -shared vec.c
+gcc -Wall -Wextra -fdiagnostics-color=always -ggdb -o libvec.so -fpic -shared vec.c
 # 2. Compile code that will going to use the library.
 gcc -c main.c -o main.o
 # 3. Link shared library to your source object.
