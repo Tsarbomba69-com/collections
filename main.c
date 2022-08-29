@@ -9,18 +9,18 @@ int main()
     push(&a, 2);
     push(&a, 3);
     printf("a = ");
-    print_vec(&a);
+    print_vec(&a, 'f');
     enqueue(&b, 4);
     enqueue(&b, 5);
     enqueue(&b, 6);
     printf("q = ");
-    print_vec(&b);
+    print_vec(&b, 'p');
     append(&a, &b);
     reverse(&a);
     reverse(&a);
     reverse(&a);
     printf("vec = ");
-    print_vec(&a);
+    print_vec(&a, 'd');
     clear(&a);
     while (a.len > 0)
     {

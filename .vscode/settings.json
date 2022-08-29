@@ -3,6 +3,7 @@
         "cstdio": "c",
         "string.h": "c",
         "errno.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "vec.h": "c"
     }
 }

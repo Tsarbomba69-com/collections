@@ -111,7 +111,7 @@ void clear(Vec *vec)
     vec->len = 0;
 }
 
-void print_vec(Vec *vec)
+void print_vec(Vec *vec, char type)
 {
     assert(vec != NULL);
     Node *tmp = vec->head;
@@ -119,7 +119,33 @@ void print_vec(Vec *vec)
 
     while (tmp != NULL)
     {
-        printf("%p, ", tmp->data);
+        switch (type)
+        {
+        case 'p':
+            printf("%p, ", tmp->data);
+            break;
+        case 'd':
+            printf("%d, ", (int)tmp->data);
+            break;
+        case 'f':
+            printf("%f, ", tmp->data);
+            break;
+        case 'c':
+            printf("%c, ", (char)tmp->data);
+            break;
+        case 'x':
+            printf("%x, ", (u_int)tmp->data);
+            break;
+        case 'o':
+            printf("%o, ", (u_int)tmp->data);
+            break;
+        case 's':
+            printf("%s, ", (char *)tmp->data);
+            break;
+        default:
+            fprintf(stderr, "Unsupported format especifier %c.\nAllowed formats: p, d, f, c, x, s, o\n", type);
+            exit(EXIT_FAILURE);
+        }
         tmp = tmp->next;
     }
 
