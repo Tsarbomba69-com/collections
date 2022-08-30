@@ -39,5 +39,11 @@ int main()
 
     push(&a, 9);
     printf("head->data = %i\n", (int)a.head->data);
+    char array[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
+    // Vec d = from(array);
+    Vec d = new_vec();
+    VEC(d, array);
+    printf("d = ");
+    print_vec(&d, 'c');
     return EXIT_SUCCESS;
 }

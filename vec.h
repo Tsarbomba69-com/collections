@@ -13,7 +13,7 @@ typedef struct Node
     struct Node *next;
 } Node;
 
-// vector struct
+// A contiguous growable array type with heap-allocated contents.
 typedef struct Vec
 {
     u_int len;
@@ -31,6 +31,27 @@ typedef struct Result
 } Result;
 //--------------------------------------
 
+// #define VEC(vec, array) ({                  \
+//     assert(array != NULL);                  \
+//     size_t size = sizeof array;             \
+//     vec.head = new_node(array[0]);          \
+//     Node *current = vec.head;               \
+//     vec.len++;                              \
+//                                             \
+//     for (size_t i = 0; i < size; i++)       \
+//     {                                       \
+//         current->next = new_node(array[i]); \
+//         current = current->next;            \
+//         vec.len++;                          \
+//     }                                       \
+// })
+
+#define VEC(vec, array) ({                    \
+    for (size_t i = 0; i < sizeof array; i++) \
+    {                                         \
+        enqueue(&vec, array[i]);              \
+    }                                         \
+})
 // Creates a new node containig the given data.
 Node *new_node(void *data);
 // Push a element to the beggining of the vector.

@@ -33,6 +33,13 @@ typedef struct Result
 } Result;
 //--------------------------------------
 
+#define VEC(vec, array) ({                    \
+    for (size_t i = 0; i < sizeof array; i++) \
+    {                                         \
+        enqueue(&vec, array[i]);              \
+    }                                         \
+})
+
 // Creates a new node containig the given data.
 Node *new_node(void *data);
 // Push a element to the beggining of the vector.
@@ -280,22 +287,22 @@ void print_vec(Vec *vec, char type)
             printf("%p, ", tmp->data);
             break;
         case 'd':
-            printf("%d, ", (int)tmp->data);
+            printf("%d, ", tmp->data);
             break;
         case 'f':
             printf("%f, ", tmp->data);
             break;
         case 'c':
-            printf("%c, ", (char)tmp->data);
+            printf("%c, ", tmp->data);
             break;
         case 'x':
-            printf("%x, ", (u_int)tmp->data);
+            printf("%x, ", tmp->data);
             break;
         case 'o':
-            printf("%o, ", (u_int)tmp->data);
+            printf("%o, ", tmp->data);
             break;
         case 's':
-            printf("%s, ", (char *)tmp->data);
+            printf("%s, ", tmp->data);
             break;
         default:
             fprintf(stderr, "Unsupported format especifier %c.\nAllowed formats: p, d, f, c, x, s, o\n", type);
