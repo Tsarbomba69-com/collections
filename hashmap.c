@@ -11,20 +11,33 @@ Pair *new_pair(const char *key, void *value)
     return node;
 }
 
-void insert_pair(HashMap *map, const char *key, void *value)
+void *insert_pair(HashMap *map, const char *key, void *value)
 {
     assert(map != NULL);
     Pair *el = new_pair(key, value);
 
     if (map->head == NULL)
-        map->head = el;
-    else
     {
-        el->next = map->head;
         map->head = el;
+        map->len++;
+        return NULL;
     }
 
+    for (Pair *cursor = map->head; cursor != NULL; cursor = cursor->next)
+    {
+        if (cursor->k == el->k)
+        {
+            void *result = cursor->v;
+            cursor->v = value;
+            map->len++;
+            return result;
+        }
+    }
+
+    el->next = map->head;
+    map->head = el;
     map->len += 1;
+    return NULL;
 }
 
 void print_map(HashMap *map, char type)

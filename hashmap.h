@@ -21,8 +21,10 @@ typedef struct Pair
     struct Pair *next;
 } Pair;
 
-// Inserts a key-value pair into the HashMap.
-void insert_pair(HashMap *map, const char *key, void *value);
+// Inserts a key-value pair into the map.
+// If the map did not have this key present, NULL is returned.
+// If the map did have this key present, the value is updated, and the old value is returned. The key is not updated
+void *insert_pair(HashMap *map, const char *key, void *value);
 void *value(HashMap *map, const char *key);
 // Creates a new empty HashMap
 HashMap new_hashmap();

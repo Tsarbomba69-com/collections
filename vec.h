@@ -6,6 +6,15 @@
 #include <stdlib.h>
 #include <assert.h>
 
+// Supported vector types. You need to pass a type when creating an empty vector.
+typedef enum Type
+{
+    INT,
+    FLOAT,
+    CHAR,
+    STRING
+} Type;
+
 // Heap allocated vector node (element).
 typedef struct Node
 {
@@ -17,6 +26,7 @@ typedef struct Node
 typedef struct Vec
 {
     u_int len;
+    Type type;
     Node *head;
 } Vec;
 
@@ -46,8 +56,8 @@ typedef struct Result
 //     }                                       \
 // })
 
-#define VEC(vec, array) ({                    \
-    for (size_t i = 0; i < sizeof array; i++) \
+#define VEC(vec, array, len) ({                    \
+    for (size_t i = 0; i < len; i++) \
     {                                         \
         enqueue(&vec, array[i]);              \
     }                                         \
@@ -68,7 +78,7 @@ void reverse(Vec *vec);
 void clear(Vec *vec);
 /* Print a vector with a given format especifier (pass 'type' without the % symbol as it it a char).
 Supported format: %p, %d, %f, %c, %x, %s, %o*/
-void print_vec(Vec *vec, char type);
+void print_vec(Vec *vec);
 // Append 'other' vector to 'dest' vector.
 void append(Vec *dest, Vec *other);
 // Get an element from the vector with a given index.
@@ -82,6 +92,6 @@ void *vec_remove(Vec *vec, size_t index);
 // Shortens the vector, keeping the first len elements and dropping the rest.
 void truncate(Vec *vec, size_t len);
 // Creates a new empty vector
-Vec new_vec();
+Vec new_vec(Type type);
 
 #endif

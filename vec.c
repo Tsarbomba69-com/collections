@@ -186,7 +186,7 @@ void clear(Vec *vec)
     vec->len = 0;
 }
 
-void print_vec(Vec *vec, char type)
+void print_vec(Vec *vec)
 {
     assert(vec != NULL);
     if (vec->len == 0)
@@ -200,31 +200,22 @@ void print_vec(Vec *vec, char type)
 
     while (tmp != NULL)
     {
-        switch (type)
+        switch (vec->type)
         {
-        case 'p':
-            printf("%p", tmp->data);
-            break;
-        case 'd':
+        case INT:
             printf("%d", (int)tmp->data);
             break;
-        case 'f':
-            printf("%f", tmp->data);
+        case FLOAT:
+            printf("%f", *((float *)tmp->data));
             break;
-        case 'c':
+        case CHAR:
             printf("\'%c\'", (char)tmp->data);
             break;
-        case 'x':
-            printf("%x", (u_int)tmp->data);
-            break;
-        case 'o':
-            printf("%o", (u_int)tmp->data);
-            break;
-        case 's':
+        case STRING:
             printf("\"%s\"", (char *)tmp->data);
             break;
         default:
-            fprintf(stderr, "Unsupported format especifier \'%c\'.\nAllowed formats: p, d, f, c, x, s, o\n", type);
+            fprintf(stderr, "Unsupported format especifier.\nAllowed formats: \%d, \%f, \%c, \%s\n");
             exit(EXIT_FAILURE);
         }
         tmp = tmp->next;
@@ -261,7 +252,7 @@ void *get(Vec *vec, size_t index)
 Vec clone(Vec *vec)
 {
     Node *current = vec->head;
-    Vec cloned = new_vec();
+    Vec cloned = new_vec(vec->type);
 
     while (current != NULL)
     {
@@ -272,8 +263,8 @@ Vec clone(Vec *vec)
     return cloned;
 }
 
-Vec new_vec()
+Vec new_vec(Type type)
 {
-    Vec vec = {.len = 0, .head = NULL};
+    Vec vec = {.len = 0, .head = NULL, .type = type};
     return vec;
 }
