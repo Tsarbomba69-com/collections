@@ -214,8 +214,11 @@ void print_vec(Vec *vec)
         case STRING:
             printf("\"%s\"", (char *)tmp->data);
             break;
+        case BOOL:
+            printf("%s", tmp->data ? "true" : "false");
+            break;
         default:
-            fprintf(stderr, "Unsupported format especifier.\nAllowed formats: \%d, \%f, \%c, \%s\n");
+            fprintf(stderr, "Unsupported format especifier.\nAllowed formats: INT, FLOAT, CHAR, STRING, BOOL\n");
             exit(EXIT_FAILURE);
         }
         tmp = tmp->next;

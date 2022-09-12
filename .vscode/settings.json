@@ -7,6 +7,7 @@
         "vec.h": "c",
         "hashmap.h": "c",
         "hashmap_debug.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdbool.h": "c"
     }
 }

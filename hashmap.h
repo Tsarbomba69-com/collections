@@ -6,11 +6,13 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include "vec.h"
 
 // A contiguous growable HashMap type with heap-allocated contents.
 typedef struct HashMap
 {
     u_int len;
+    Type type;
     struct Pair *head;
 } HashMap;
 
@@ -27,11 +29,11 @@ typedef struct Pair
 void *insert_pair(HashMap *map, const char *key, void *value);
 void *value(HashMap *map, const char *key);
 // Creates a new empty HashMap
-HashMap new_hashmap();
+HashMap new_hashmap(Type type);
 // Creates a new key-value pair
 Pair *new_pair(const char *key, void *value);
-/* Print a HashMap with a given format especifier (pass 'type' without the % symbol as it it a char).
-Supported format: %p, %d, %f, %c, %x, %s, %o*/
-void print_map(HashMap *map, char type);
+/* Print a hashmap with a given format especifier.
+Supported format: INT, FLOAT, CHAR, STRING, BOOL*/
+void print_map(HashMap *map);
 int hash(const char *key);
 #endif

@@ -5,14 +5,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <stdbool.h>
 
-// Supported vector types. You need to pass a type when creating an empty vector.
+// Supported vector types. You need to pass a type when creating an empty collection.
 typedef enum Type
 {
     INT,
     FLOAT,
     CHAR,
-    STRING
+    STRING,
+    BOOL
 } Type;
 
 // Heap allocated vector node (element).
@@ -76,8 +78,8 @@ void *pop(Vec *vec);
 void reverse(Vec *vec);
 // Deallocate all of the vector data.
 void clear(Vec *vec);
-/* Print a vector with a given format especifier (pass 'type' without the % symbol as it it a char).
-Supported format: %p, %d, %f, %c, %x, %s, %o*/
+/* Print a vector with a given format especifier.
+Supported format: INT, FLOAT, CHAR, STRING, BOOL*/
 void print_vec(Vec *vec);
 // Append 'other' vector to 'dest' vector.
 void append(Vec *dest, Vec *other);

@@ -40,7 +40,7 @@ void *insert_pair(HashMap *map, const char *key, void *value)
     return NULL;
 }
 
-void print_map(HashMap *map, char type)
+void print_map(HashMap *map)
 {
     assert(map != NULL);
     if (map->len == 0)
@@ -54,36 +54,33 @@ void print_map(HashMap *map, char type)
 
     while (tmp != NULL)
     {
-        switch (type)
+        while (tmp != NULL)
         {
-        case 'p':
-            printf("%p", tmp->v);
-            break;
-        case 'd':
-            printf("%d", (int)tmp->v);
-            break;
-        case 'f':
-            printf("%f", tmp->v);
-            break;
-        case 'c':
-            printf("\'%c\'", (char)tmp->v);
-            break;
-        case 'x':
-            printf("%x", (u_int)tmp->v);
-            break;
-        case 'o':
-            printf("%o", (u_int)tmp->v);
-            break;
-        case 's':
-            printf("\"%s\"", (char *)tmp->v);
-            break;
-        default:
-            fprintf(stderr, "Unsupported format especifier \'%c\'.\nAllowed formats: p, d, f, c, x, s, o\n", type);
-            exit(EXIT_FAILURE);
+            switch (map->type)
+            {
+            case INT:
+                printf("%d", (int)tmp->v);
+                break;
+            case FLOAT:
+                printf("%f", *((float *)tmp->v));
+                break;
+            case CHAR:
+                printf("\'%c\'", (char)tmp->v);
+                break;
+            case STRING:
+                printf("\"%s\"", (char *)tmp->v);
+                break;
+            case BOOL:
+                printf("%s", tmp->v ? "true" : "false");
+                break;
+            default:
+                fprintf(stderr, "Unsupported format especifier.\nAllowed formats: INT, FLOAT, CHAR, STRING, BOOL\n");
+                exit(EXIT_FAILURE);
+            }
+            tmp = tmp->next;
+            if (tmp != NULL)
+                printf(", ");
         }
-        tmp = tmp->next;
-        if (tmp != NULL)
-            printf(", ");
     }
 
     puts("]");
@@ -103,9 +100,9 @@ void *value(HashMap *map, const char *key)
     return NULL;
 }
 
-HashMap new_hashmap()
+HashMap new_hashmap(Type type)
 {
-    HashMap map = {.len = 0, .head = NULL};
+    HashMap map = {.len = 0, .head = NULL, .type = type};
     return map;
 }
 

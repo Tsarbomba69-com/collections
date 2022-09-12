@@ -7,13 +7,13 @@ int main()
 {
     Vec a = new_vec(INT);
     Vec b = new_vec(INT);
-    HashMap map = new_hashmap();
+    HashMap map = new_hashmap(STRING);
     printf("f1 = %s\n", insert_pair(&map, "First Name", "Hendrick"));
     printf("f2 = %s\n", insert_pair(&map, "Middle Name", "Walter"));
     printf("f3 = %s\n", insert_pair(&map, "Last Name", "Almeida"));
     printf("f4 = %s\n", insert_pair(&map, "Last Name", "Dias"));
     printf("map = ");
-    print_map(&map, 's');
+    print_map(&map);
     printf("v = %s\n", value(&map, "Last Name"));
     printf("a = { \n\tlen: %i, \n\thead: %p \n}\n", a.len, a.head);
     push(&a, 1);
