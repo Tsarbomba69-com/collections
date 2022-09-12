@@ -203,31 +203,33 @@ void print_vec(Vec *vec, char type)
         switch (type)
         {
         case 'p':
-            printf("%p, ", tmp->data);
+            printf("%p", tmp->data);
             break;
         case 'd':
-            printf("%d, ", (int)tmp->data);
+            printf("%d", (int)tmp->data);
             break;
         case 'f':
-            printf("%f, ", tmp->data);
+            printf("%f", tmp->data);
             break;
         case 'c':
-            printf("%c, ", (char)tmp->data);
+            printf("\'%c\'", (char)tmp->data);
             break;
         case 'x':
-            printf("%x, ", (u_int)tmp->data);
+            printf("%x", (u_int)tmp->data);
             break;
         case 'o':
-            printf("%o, ", (u_int)tmp->data);
+            printf("%o", (u_int)tmp->data);
             break;
         case 's':
-            printf("%s, ", (char *)tmp->data);
+            printf("\"%s\"", (char *)tmp->data);
             break;
         default:
-            fprintf(stderr, "Unsupported format especifier %c.\nAllowed formats: p, d, f, c, x, s, o\n", type);
+            fprintf(stderr, "Unsupported format especifier \'%c\'.\nAllowed formats: p, d, f, c, x, s, o\n", type);
             exit(EXIT_FAILURE);
         }
         tmp = tmp->next;
+        if (tmp != NULL)
+            printf(", ");
     }
 
     puts("]");
@@ -272,7 +274,6 @@ Vec clone(Vec *vec)
 
 Vec new_vec()
 {
-    Vec vec = {.len = 0, .head = (Node *)malloc(sizeof(Node))};
-    vec.head = NULL;
+    Vec vec = {.len = 0, .head = NULL};
     return vec;
 }

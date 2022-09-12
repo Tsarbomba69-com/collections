@@ -1,10 +1,18 @@
 #include "vec.h"
+#include "hashmap.h"
+// #include "hashmap_debug.h"
 // #include "vec_debug.h"
 
 int main()
 {
     Vec a = new_vec();
     Vec b = new_vec();
+    HashMap map = new_hashmap();
+    insert_pair(&map, "First Name", "Hendrick");
+    insert_pair(&map, "Last Name", "Dias");
+    printf("map = ");
+    print_map(&map, 's');
+    printf("v = %s\n", value(&map, "First Name"));
     printf("a = { \n\tlen: %i, \n\thead: %p \n}\n", a.len, a.head);
     push(&a, 1);
     push(&a, 2);
