@@ -1,9 +1,8 @@
 # vec
 ### Eng
-A shared library for linear data structure construction and manipulation in C (stack, queue, linked list).
-
+A collection of shared libraries for building and manipulating linear data structures in C (stack, queue, linked list, hash map).
 ### Pt
-Uma biblioteca compartilhada para construção e manipulação de estruturas de dados lineares em C (pilha, fila, lista encadeada).
+Uma coleção de bibliotecas compartilhadas para construção e manipulação de estruturas de dados lineares em C (pilha, fila, lista encadeada, hash map).
 
 ## Quick Start
 >
@@ -13,16 +12,16 @@ Uma biblioteca compartilhada para construção e manipulação de estruturas de 
 >
 > 1. Copy "libvec.so" to "/usr/lib" folder.
 > 2. Import library in your source code. <code>#include "vec.h"</code>
-> 3. Link the shared library to your source object. <code>gcc -o [source obj] [source obj].o -lvec -L/usr/lib/</code>
+> 3. Link the shared library to your source object. <code>$ gcc -o [source obj] [source obj].o -lvec -L/usr/lib/</code>
 > 4. Enjoy 🙂
 
 ## Diagrams
 ### Pop function
-![Link](https://github.com/Tsarbomba69-com/vec/blob/main/img/pop%20(dark).svg)
+![pop](https://github.com/Tsarbomba69-com/vec/blob/main/img/pop%20(dark).svg)
 
 ### Reverse function
-![Link](https://github.com/Tsarbomba69-com/vec/blob/main/img/reverse%20(dark).svg)
+![reverse](https://github.com/Tsarbomba69-com/vec/blob/main/img/reverse%20(dark).svg)
 
-### Build script
-![Link](https://github.com/Tsarbomba69-com/vec/blob/main/img/build-shared-library%20(dark).svg)
+### Build process
+![build](https://github.com/Tsarbomba69-com/vec/blob/main/img/build-shared-library%20(dark).svg)
 
