@@ -1,6 +1,6 @@
 #include "vec.h"
 
-Node *new_node(void *data)
+Node *new_node(T data)
 {
     Node *node = (Node *)malloc(sizeof(Node));
     assert(node != NULL);
@@ -9,7 +9,7 @@ Node *new_node(void *data)
     return node;
 }
 
-void push(Vec *vec, void *data)
+void push(Vec *vec, T data)
 {
     assert(vec != NULL);
     Node *el = new_node(data);
@@ -25,7 +25,7 @@ void push(Vec *vec, void *data)
     vec->len += 1;
 }
 
-void enqueue(Vec *vec, void *data)
+void enqueue(Vec *vec, T data)
 {
     assert(vec != NULL);
     Node *el = new_node(data);
@@ -49,7 +49,7 @@ void enqueue(Vec *vec, void *data)
     vec->len++;
 }
 
-void insert(Vec *vec, void *data, size_t index)
+void insert(Vec *vec, T data, size_t index)
 {
     assert(vec != NULL && vec->len > 0 && vec->len >= index);
 
@@ -72,7 +72,7 @@ void insert(Vec *vec, void *data, size_t index)
     vec->len++;
 }
 
-void *vec_remove(Vec *vec, size_t index)
+T vec_remove(Vec *vec, size_t index)
 {
     assert(vec != NULL && vec->len > 0 && vec->len >= index);
 
@@ -93,7 +93,7 @@ void *vec_remove(Vec *vec, size_t index)
         prev = cursor;
         cursor = cursor->next;
     }
-    void *result = cursor->data;
+    T result = cursor->data;
     prev->next = cursor->next;
     free(cursor);
     vec->len--;
@@ -118,7 +118,7 @@ void truncate(Vec *vec, size_t len)
     }
 }
 
-void *dequeue(Vec *vec)
+T dequeue(Vec *vec)
 {
     assert(vec != NULL && vec->len > 0);
     if (vec->len == 1)
@@ -130,7 +130,7 @@ void *dequeue(Vec *vec)
     {
         if (cursor->next == NULL)
         {
-            void *result = cursor->data;
+            T result = cursor->data;
             prev->next = NULL;
             free(cursor);
             vec->len--;
@@ -142,12 +142,12 @@ void *dequeue(Vec *vec)
     } while (cursor != NULL);
 }
 
-void *pop(Vec *vec)
+T pop(Vec *vec)
 {
     assert(vec != NULL && vec->len > 0);
     Node *tmp = vec->head;
     vec->head = tmp->next;
-    void *result = tmp->data;
+    T result = tmp->data;
     free(tmp);
     vec->len--;
     return result;
@@ -203,19 +203,22 @@ void print_vec(Vec *vec)
         switch (vec->type)
         {
         case INT:
-            printf("%d", (int)tmp->data);
+            printf("%d", (int)tmp->data.i);
             break;
         case FLOAT:
-            printf("%f", *((float *)tmp->data));
+            printf("%f", (float)tmp->data.f);
+            break;
+            case DOUBLE:
+            printf("%f", (double)tmp->data.d);
             break;
         case CHAR:
-            printf("\'%c\'", (char)tmp->data);
+            printf("\'%c\'", (char)tmp->data.c);
             break;
         case STRING:
-            printf("\"%s\"", (char *)tmp->data);
+            printf("\"%s\"", (char *)tmp->data.s);
             break;
         case BOOL:
-            printf("%s", tmp->data ? "true" : "false");
+            printf("%s", tmp->data.b ? "true" : "false");
             break;
         default:
             fprintf(stderr, "Unsupported format especifier.\nAllowed formats: INT, FLOAT, CHAR, STRING, BOOL\n");
@@ -239,7 +242,7 @@ void append(Vec *dest, Vec *other)
     }
 }
 
-void *get(Vec *vec, size_t index)
+T get(Vec *vec, size_t index)
 {
     assert(vec != NULL && vec->len > 0 && index < vec->len);
     Node *cursor = vec->head;
