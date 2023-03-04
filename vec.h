@@ -17,7 +17,7 @@ typedef enum Type
     BOOL,
     DOUBLE
 } Type;
-
+// Represents a generic type for primitive types. The base type for Linked List operations
 typedef union T
 {
     double d;
@@ -26,6 +26,7 @@ typedef union T
     char c;
     bool b;
     char *s;
+    void *v;
 } T;
 
 // Heap allocated vector node (element).
@@ -58,11 +59,11 @@ typedef struct Vec
 //     }                                       \
 // })
 
-#define VEC(vec, array, len) ({      \
-    for (size_t i = 0; i < len; i++) \
-    {                                \
-        enqueue(&vec, (T)array[i]);     \
-    }                                \
+#define VEC(vec, array, len) ({        \
+    for (size_t i = 0; i < len; i++)   \
+    {                                  \
+        enqueue(&vec, (T)array[i]);    \
+    }                                  \
 })
 // Creates a new node containig the given data.
 Node *new_node(T data);
